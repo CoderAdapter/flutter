@@ -1,4 +1,4 @@
-##[Flutter 中文API文档](https://docs.flutter.kim)
+## [Flutter 中文API文档](https://docs.flutter.kim)
 
 目前(2018.5.13) Flutter与Dart的API文档还没有中文翻译，因此打算制作一个中文文档站点方便大家查阅，希望能对大家有所帮助。如果急需翻译某一部分或向我提供建议，请提交[issue](https://github.com/creatint/flutter/issues/new)。
 
@@ -38,5 +38,5 @@
  - mixin 混入
  - widget 组件
 
-### 编程技术交流群
-[![](//pub.idqqimg.com/wpa/images/group.png)](//shang.qq.com/wpa/qunwpa?idkey=b34e5d3956950dc053efdd7aef63ef75151c01cfff48a951c8fc53d6349b454a)
+### 编程交流群
+[QQ群495873227]](//shang.qq.com/wpa/qunwpa?idkey=b34e5d3956950dc053efdd7aef63ef75151c01cfff48a951c8fc53d6349b454a)
