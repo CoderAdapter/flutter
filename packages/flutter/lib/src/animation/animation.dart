@@ -70,7 +70,7 @@ abstract class Animation<T> extends Listenable implements ValueListenable<T> {
   /// The current status of this animation.
   AnimationStatus get status;
 
-  /// The current value of the animation.
+  /// 动画的当前状态
   @override
   T get value;
 
