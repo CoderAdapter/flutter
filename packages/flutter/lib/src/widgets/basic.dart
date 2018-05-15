@@ -3339,26 +3339,21 @@ class Flex extends MultiChildRenderObjectWidget {
   }
 }
 
-/// A widget that displays its children in a horizontal array.
+/// 使子组件横向排列显示的组件。
 ///
-/// To cause a child to expand to fill the available horizontal space, wrap the
-/// child in an [Expanded] widget.
+/// 用[Expanded]包裹其中一个子组件，可以使它填满横向可用空间。
 ///
-/// The [Row] widget does not scroll (and in general it is considered an error
-/// to have more children in a [Row] than will fit in the available room). If
-/// you have a line of widgets and want them to be able to scroll if there is
-/// insufficient room, consider using a [ListView].
+/// [Row]组件不滚动（而且如果放置太多子组件超出可用空间通常是错误的做法）。如果
+/// 你想让一行组件在空间不足时发生滚动，可以考虑使用[ListView]。
 ///
-/// For a vertical variant, see [Column].
+/// [Column]提供纵向排列的功能。
 ///
-/// If you only have one child, then consider using [Align] or [Center] to
-/// position the child.
+/// 如果有一个子组件，考虑用[Align]或[Center]来定位子组件。
 ///
-/// ## Sample code
+/// ## 示例代码
 ///
-/// This example divides the available space into three (horizontally), and
-/// places text centered in the first two cells and the Flutter logo centered in
-/// the third:
+/// 这个例子把可用空间分成了三份(水平)，并且在前两格放置居中的文本，第三格放置
+/// Flutter logo。
 ///
 /// ```dart
 /// new Row(
@@ -3379,126 +3374,105 @@ class Flex extends MultiChildRenderObjectWidget {
 /// )
 /// ```
 ///
-/// ## Troubleshooting
+/// ## 故障排除
 ///
-/// ### Why does my row have a yellow and black warning stripe?
+/// ### 为什么我的row有黄黑条纹？
 ///
-/// If the non-flexible contents of the row (those that are not wrapped in
-/// [Expanded] or [Flexible] widgets) are together wider than the row itself,
-/// then the row is said to have overflowed. When a row overflows, the row does
-/// not have any remaining space to share between its [Expanded] and [Flexible]
-/// children. The row reports this by drawing a yellow and black striped
-/// warning box on the edge that is overflowing. If there is room on the outside
-/// of the row, the amount of overflow is printed in red lettering.
+/// 如果非弹性（non-flexible）内容的总尺寸超出row本身，那么row会被通知溢出。当
+/// row发生溢出，通常外部不会有保留空间可供[Expanded]和[Flexible]分享。row通过在
+/// 溢出边缘绘制黄黑条纹来报错。如果row外面有空间，一处部分会用红色字显示溢出部
+/// 分。
 ///
-/// #### Story time
+/// #### 故事时间
 ///
-/// Suppose, for instance, that you had this code:
+/// 假设你有这样的代码：
 ///
 /// ```dart
 /// new Row(
 ///   children: <Widget>[
 ///     const FlutterLogo(),
-///     const Text('Flutter\'s hot reload helps you quickly and easily experiment, build UIs, add features, and fix bug faster. Experience sub-second reload times, without losing state, on emulators, simulators, and hardware for iOS and Android.'),
+///     const Text('Flutter的热重载帮助你迅速方便的试验、构建UI、添加功能和修复
+///       bug，使你在Android、iOS、模拟器和仿真器上不失状态的体验亚秒级的重载'),
 ///     const Icon(Icons.sentiment_very_satisfied),
 ///   ],
 /// )
 /// ```
 ///
-/// The row first asks its first child, the [FlutterLogo], to lay out, at
-/// whatever size the logo would like. The logo is friendly and happily decides
-/// to be 24 pixels to a side. This leaves lots of room for the next child. The
-/// row then asks that next child, the text, to lay out, at whatever size it
-/// thinks is best.
+/// row首先让他的第一个孩子 - [FlutterLogo] - 用他乐意的姿势躺在那，这孩子友好且
+/// 高兴地的在他四周留出24像素的边距。这为第二个孩子留出了很多空间。然后row让二
+/// 娃子- 文本 - 也去用他乐意的姿势躺着。
 ///
-/// At this point, the text, not knowing how wide is too wide, says "Ok, I will
-/// be thiiiiiiiiiiiiiiiiiiiis wide.", and goes well beyond the space that the
-/// row has available, not wrapping. The row responds, "That's not fair, now I
-/// have no more room available for my other children!", and gets angry and
-/// sprouts a yellow and black strip.
+/// 此时，不知天高地厚的二娃子说道：“好的，我要........这么躺！”。然后他就远远
+/// 超过了row的可用空间，包不住了。row说道：“这不公平，我没有更多空间给我其他孩
+/// 子了！”，然后row生气了，扔出一团黄黑条纹。
 ///
-/// The fix is to wrap the second child in an [Expanded] widget, which tells the
-/// row that the child should be given the remaining room:
+/// 修复手段是用一个[Expanded]组件包裹二娃子，这会告诉row二娃子要用最后剩下的空间：
 ///
 /// ```dart
 /// new Row(
 ///   children: <Widget>[
 ///     const FlutterLogo(),
 ///     const Expanded(
-///       child: const Text('Flutter\'s hot reload helps you quickly and easily experiment, build UIs, add features, and fix bug faster. Experience sub-second reload times, without losing state, on emulators, simulators, and hardware for iOS and Android.'),
+///       child: const Text('Flutter的热重载帮助你迅速方便的试验、构建UI、添加功
+///         能和修复bug，使你在Android、iOS、模拟器和仿真器上不失状态的体验亚秒
+///         级的重载'),
 ///     ),
 ///     const Icon(Icons.sentiment_very_satisfied),
 ///   ],
 /// )
 /// ```
 ///
-/// Now, the row first asks the logo to lay out, and then asks the _icon_ to lay
-/// out. The [Icon], like the logo, is happy to take on a reasonable size (also
-/// 24 pixels, not coincidentally, since both [FlutterLogo] and [Icon] honor the
-/// ambient [IconTheme]). This leaves some room left over, and now the row tells
-/// the text exactly how wide to be: the exact width of the remaining space. The
-/// text, now happy to comply to a reasonable request, wraps the text within
-/// that width, and you end up with a paragraph split over several lines.
+/// 现在，row首先让logo躺在那，然后让 _icon_ 躺在那。[Icon]像logo那样友好而开心
+/// 的占用一块合理的空间（也是24像素，不是碰巧，而是[FlutterLogo]和[Icon]尊重旁
+/// 边的[IconTheme]）。这就在左侧留出了一部分空间，现在row告诉text具体可以占用多
+/// 少空间：剩下的空间有多宽。二娃子很乐意遵守合理的要求，在可用宽度内躺好。那么
+/// 现在你有一段分为几行的文本。
 ///
-/// ## Layout algorithm
+/// ## 布局算法
 ///
-/// _This section describes how a [Row] is rendered by the framework._
-/// _See [BoxConstraints] for an introduction to box layout models._
+/// _此节描述了框架如何渲染[Row]。_
+/// _查阅[BoxConstraints]获取盒式布局模型_
 ///
-/// Layout for a [Row] proceeds in six steps:
+/// [Row]的布局分为6步进行：
 ///
-/// 1. Layout each child a null or zero flex factor (e.g., those that are not
-///    [Expanded]) with unbounded horizontal constraints and the incoming
-///    vertical constraints. If the [crossAxisAlignment] is
-///    [CrossAxisAlignment.stretch], instead use tight vertical constraints that
-///    match the incoming max height.
-/// 2. Divide the remaining horizontal space among the children with non-zero
-///    flex factors (e.g., those that are [Expanded]) according to their flex
-///    factor. For example, a child with a flex factor of 2.0 will receive twice
-///    the amount of horizontal space as a child with a flex factor of 1.0.
-/// 3. Layout each of the remaining children with the same vertical constraints
-///    as in step 1, but instead of using unbounded horizontal constraints, use
-///    horizontal constraints based on the amount of space allocated in step 2.
-///    Children with [Flexible.fit] properties that are [FlexFit.tight] are
-///    given tight constraints (i.e., forced to fill the allocated space), and
-///    children with [Flexible.fit] properties that are [FlexFit.loose] are
-///    given loose constraints (i.e., not forced to fill the allocated space).
-/// 4. The height of the [Row] is the maximum height of the children (which will
-///    always satisfy the incoming vertical constraints).
-/// 5. The width of the [Row] is determined by the [mainAxisSize] property. If
-///    the [mainAxisSize] property is [MainAxisSize.max], then the width of the
-///    [Row] is the max width of the incoming constraints. If the [mainAxisSize]
-///    property is [MainAxisSize.min], then the width of the [Row] is the sum
-///    of widths of the children (subject to the incoming constraints).
-/// 6. Determine the position for each child according to the
-///    [mainAxisAlignment] and the [crossAxisAlignment]. For example, if the
-///    [mainAxisAlignment] is [MainAxisAlignment.spaceBetween], any horizontal
-///    space that has not been allocated to children is divided evenly and
-///    placed between the children.
+/// 1. 用无界水平约束和引入的垂直约束为每个子组件布局一个null或弹性系数0（不是
+///    [Expanded]的组件）。如果[crossAxisAlignment]是[CrossAxisAlignment.stretch]，
+///    则使用与传入的最大高度所匹配的紧垂直约束。
+/// 2. 根据这些子组件非零的弹性系数（它们是[Expanded]）分割水平可用空间。例如，
+///    一个弹性系数为2.0的子组件接收到的水平空间是弹性系数为1.0的子组件的2倍。
+/// 3. 用和步骤1同样的垂直约束布局剩下的组件，但是不用无界水平约束，而是用基于步
+///    骤2分得空间的水平约束。[Flexible.fit]属性值为[FlexFit.tight]的子组件被紧
+///    约束（例如，强制填满分得的空间），[Flexible.fit]属性值为[FlexFit.loose]的
+///    子组件被松约束布局（例如，不强制填满分得的空间）。
+/// 4. [Row]的高度是子组件高度的最大值（这总要满足传入的垂直约束）。
+/// 5. [Row]的宽度由[mainAxisSize]属性决定。如果[mainAxisSize]属性值为
+///    [MainAxisSize.max]，那么[Row]的宽度就是传入约束的最大宽度。如果
+///    [mainAxisSize]属性值为[MainAxisSize.min]，那么[Row]宽度就是所有子组件宽度
+///    的和值（受制于传入的约束）。
+/// 5. 根据[mainAxisAlignment]和[crossAxisAlignment]来确定每一个子组件的位
+///    置。例如，如果[mainAxisAlignment]属性值是[MainAxisAlignment.spaceBetween]，
+///    未被分配的水平空间会被平均分割并置于子组件之间。
 ///
-/// See also:
+/// 请参阅：
 ///
-///  * [Column], for a vertical equivalent.
-///  * [Flex], if you don't know in advance if you want a horizontal or vertical
-///    arrangement.
-///  * [Expanded], to indicate children that should take all the remaining room.
-///  * [Flexible], to indicate children that should share the remaining room but
-///    that may by sized smaller (leaving some remaining room unused).
-///  * The [catalog of layout widgets](https://flutter.io/widgets/layout/).
+///  * [Column], Row的垂直变体
+///  * [Flex], 不确定想使用水平还是垂直布局时使用
+///  * [Expanded], 表明子组件需要沾满所有可用空间
+///  * [Flexible], 表明子组件可以分享可用空间，但可能是比较小的尺寸（会留下未使用的空间）
+///  * [布局组件目录](http://flutter-dev.cn/widgets/layout/).
 class Row extends Flex {
-  /// Creates a horizontal array of children.
+  /// 为多个子组件创建一个水平布局
   ///
-  /// The [direction], [mainAxisAlignment], [mainAxisSize],
-  /// [crossAxisAlignment], and [verticalDirection] arguments must not be null.
-  /// If [crossAxisAlignment] is [CrossAxisAlignment.baseline], then
-  /// [textBaseline] must not be null.
   ///
-  /// The [textDirection] argument defaults to the ambient [Directionality], if
-  /// any. If there is no ambient directionality, and a text direction is going
-  /// to be necessary to determine the layout order (which is always the case
-  /// unless the row has no children or only one child) or to disambiguate
-  /// `start` or `end` values for the [mainAxisAlignment], the [textDirection]
-  /// must not be null.
+  /// [direction], [mainAxisAlignment], [mainAxisSize],
+  /// [crossAxisAlignment] 和 [verticalDirection] 参数不可为null。
+  /// 如果 [crossAxisAlignment] 是 [CrossAxisAlignment.baseline], 那么
+  /// [textBaseline] 不可为null。
+  ///
+  /// [Directionality] 环境如果存在，[textDirection] 参数默认为它的值。如果没有
+  /// directionality环境，那么文本方向就必须传入以确定文本布局方向（除非row没有
+  /// 子组件或只有一个子组件，否则总是如此），或者消除了[mainAxisAlignment]的
+  /// `start`或`end`值时，[textDirection]也不可以是null。
   Row({
     Key key,
     MainAxisAlignment mainAxisAlignment: MainAxisAlignment.start,
