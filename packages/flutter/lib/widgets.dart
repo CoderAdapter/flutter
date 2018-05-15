@@ -8,7 +8,7 @@
 ///
 /// 请参阅：
 ///
-///  * Flutter常用组件目录 [flutter.io/widgets](https://flutter.io/widgets/)
+///  * [Flutter常用组件目录](http://doc.flutter-dev.cn/widgets/)
 library widgets;
 
 export 'package:vector_math/vector_math_64.dart' show Matrix4;

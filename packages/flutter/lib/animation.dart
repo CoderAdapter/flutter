@@ -6,7 +6,7 @@
 ///
 /// 使用方法：import `package:flutter/animation.dart` 。
 ///
-/// 查看概述：[flutter.io/animations](https://flutter.io/animations/)
+/// 查看概述：[doc.flutter-dev.cn/animations](http://doc.flutter-dev.cn/animations/)
 ///
 /// 此库只依赖Dart核心库和`physics.dart`库
 library animation;
