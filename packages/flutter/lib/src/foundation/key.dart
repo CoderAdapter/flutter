@@ -6,24 +6,23 @@ import 'dart:ui' show hashValues;
 
 import 'package:meta/meta.dart';
 
-/// A [Key] is an identifier for [Widget]s, [Element]s and [SemanticsNode]s.
+/// [Key]是[Widget]、[Element]和[SemanticsNode]的标识符
 ///
-/// A new widget will only be used to update an existing element if its key is
-/// the same as the key of the current widget associated with the element.
+/// 新组件的key与当前组件的key相同时，才会用来更新关联的现有元素
 ///
-/// Keys must be unique amongst the [Element]s with the same parent.
+/// 同一父级的元素的key必须唯一
 ///
-/// Subclasses of [Key] should either subclass [LocalKey] or [GlobalKey].
+/// [Key]的子类应该继承[LocalKey]或[GlobalKey]
 ///
-/// See also the discussion at [Widget.key].
+/// 另请参阅[Widget.key]中的讨论
 @immutable
 abstract class Key {
-  /// Construct a [ValueKey<String>] with the given [String].
+  /// 用给定的[String]构建一个[ValueKey<String>]
   ///
-  /// This is the simplest way to create keys.
+  /// 这是创建key的最简单的方法
   const factory Key(String value) = ValueKey<String>;
 
-  /// Default constructor, used by subclasses.
+  /// 默认构造方法，用于子类
   ///
   /// Useful so that subclasses can call us, because the [new Key] factory
   /// constructor shadows the implicit constructor.
@@ -31,34 +30,31 @@ abstract class Key {
   const Key.empty();
 }
 
-/// A key that is not a [GlobalKey].
+/// 不是[GlobalKey]的key
 ///
-/// Keys must be unique amongst the [Element]s with the same parent. By
-/// contrast, [GlobalKey]s must be unique across the entire app.
+/// 同一父级的元素的key必须唯一。相对的，在整个应用中[GlobalKey]必须唯一。
 ///
-/// See also the discussion at [Widget.key].
+///
+/// 另请参阅[Widget.key]中的讨论
 abstract class LocalKey extends Key {
   /// Default constructor, used by subclasses.
   const LocalKey() : super.empty();
 }
 
-/// A key that uses a value of a particular type to identify itself.
+/// 使用特定类型的值来标识自身的key。
 ///
-/// A [ValueKey<T>] is equal to another [ValueKey<T>] if, and only if, their
-/// values are [operator==].
+/// 一个[ValueKey<T>]与另一个[ValueKey<T>]只有在它们的值[operator==]时才会相等。
 ///
-/// This class can be subclassed to create value keys that will not be equal to
-/// other value keys that happen to use the same value. If the subclass is
-/// private, this results in a value key type that cannot collide with keys from
-/// other sources, which could be useful, for example, if the keys are being
-/// used as fallbacks in the same scope as keys supplied from another widget.
+/// 继承此类可以创建即使值相同也不相等的key。如果子类是私有的，这会避免key值类型
+/// 与其他来源的key值类型冲突，例如在相同作用域用key来回滚另一个组件，这是非常有
+/// 用的。
 ///
-/// See also the discussion at [Widget.key].
+/// 另请参阅[Widget.key]中的讨论
 class ValueKey<T> extends LocalKey {
-  /// Creates a key that delegates its [operator==] to the given value.
+  /// 创建一个用给定值重载[operator==]的key
   const ValueKey(this.value);
 
-  /// The value to which this key delegates its [operator==]
+  /// 重载[operator==]的值
   final T value;
 
   @override
