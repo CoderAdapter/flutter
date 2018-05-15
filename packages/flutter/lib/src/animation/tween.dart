@@ -10,14 +10,11 @@ import 'animation.dart';
 import 'animations.dart';
 import 'curves.dart';
 
-/// An object that can produce a value of type `T` given an [Animation<double>]
-/// as input.
+/// 一个通过输入[Animation<double>]来生成类型为`T`的值的对象。
 ///
-/// Typically, the values of the input animation are nominally in the range 0.0
-/// to 1.0. In principle, however, any value could be provided.
+/// 通常，输入动画的值名义上是从0.0到1.0。然而原则是可以提供任何值。
 abstract class Animatable<T> {
-  /// Abstract const constructor. This constructor enables subclasses to provide
-  /// const constructors so that they can be used in const expressions.
+  /// 抽象常量构造方法。这个构造方法使子类提供常量构造方法，以便用于常量表达式。
   const Animatable();
 
   /// The current value of this object for the given animation.

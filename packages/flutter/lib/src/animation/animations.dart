@@ -75,9 +75,9 @@ class _AlwaysDismissedAnimation extends Animation<double> {
 /// API expects an animation but you don't actually want to animate anything.
 const Animation<double> kAlwaysDismissedAnimation = const _AlwaysDismissedAnimation();
 
-/// An animation that is always stopped at a given value.
+/// 在给定值停止的动画
 ///
-/// The [status] is always [AnimationStatus.forward].
+/// 状态[status]总是会向前改变[AnimationStatus.forward]。
 class AlwaysStoppedAnimation<T> extends Animation<T> {
   /// Creates an [AlwaysStoppedAnimation] with the given value.
   ///

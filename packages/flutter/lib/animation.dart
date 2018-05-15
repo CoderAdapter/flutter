@@ -2,13 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-/// The Flutter animation system.
+/// Flutter动画系统
 ///
-/// To use, import `package:flutter/animation.dart`.
+/// 使用方法：import `package:flutter/animation.dart` 。
 ///
-/// See [flutter.io/animations](https://flutter.io/animations/) for an overview.
+/// 查看概述：[flutter.io/animations](https://flutter.io/animations/)
 ///
-/// This library depends only on core Dart libraries and the `physics.dart` library.
+/// 此库只依赖Dart核心库和`physics.dart`库
 library animation;
 
 export 'src/animation/animation.dart';

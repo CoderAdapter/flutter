@@ -3785,25 +3785,22 @@ class Flexible extends ParentDataWidget<Flex> {
   }
 }
 
-/// A widget that expands a child of a [Row], [Column], or [Flex].
+/// 一个使Row、Column或Flex的子组件扩展尺寸的组件。
 ///
-/// Using an [Expanded] widget makes a child of a [Row], [Column], or [Flex]
-/// expand to fill the available space in the main axis (e.g., horizontally for
-/// a [Row] or vertically for a [Column]). If multiple children are expanded,
-/// the available space is divided among them according to the [flex] factor.
+/// 用[Expanded]组件来使[Row]、[Column]或[Flex]的子组件在其主轴（(例如，[Row]在
+/// 水平方向，[Column]在垂直方向）方向上填充可用空间。如果让多个子组件展开，
+/// 可用空间会被以他们的伸缩因子[flex]（可理解为比例）分割。
 ///
-/// An [Expanded] widget must be a descendant of a [Row], [Column], or [Flex],
-/// and the path from the [Expanded] widget to its enclosing [Row], [Column], or
-/// [Flex] must contain only [StatelessWidget]s or [StatefulWidget]s (not other
-/// kinds of widgets, like [RenderObjectWidget]s).
+/// [Expanded]组件必须用在[Row]、[Column]或[Flex]内，并且从这个[Expanded]到
+/// 封装它的[Row]、[Column]或[Flex]的路径只能包含一些[StatelessWidget]或
+/// [StatefulWidget]组件（不能有其他类型的组件，如[RenderObjectWidget]）。
 ///
-/// See also:
+/// 请参阅：
 ///
-///  * [Flexible], which does not force the child to fill the available space.
-///  * The [catalog of layout widgets](https://flutter.io/widgets/layout/).
+///  * [Flexible]，不强制子组件填满可用空间的组件
+///  * [布局组件目录](https://flutter.io/widgets/layout/).
 class Expanded extends Flexible {
-  /// Creates a widget that expands a child of a [Row], [Column], or [Flex]
-  /// expand to fill the available space in the main axis.
+  /// 创建一个使[Row]、[Column]或[Flex]的子组件填充主轴可用空间的组件。
   const Expanded({
     Key key,
     int flex: 1,
