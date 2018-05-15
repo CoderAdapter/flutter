@@ -290,8 +290,7 @@ class Container extends StatelessWidget {
   /// 环绕[decoration]和[child]的空白空间。
   final EdgeInsetsGeometry margin;
 
-  /// The transformation matrix to apply before painting the container.
-  /// 绘制容器前的形变数列。
+  /// 绘制容器前变形所用矩阵。
   final Matrix4 transform;
 
   EdgeInsetsGeometry get _paddingIncludingDecoration {
