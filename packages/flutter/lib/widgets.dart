@@ -2,14 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-/// The Flutter widgets framework.
+/// Flutter组件框架
 ///
-/// To use, import `package:flutter/widgets.dart`.
+/// 使用方法：import `package:flutter/widgets.dart`
 ///
-/// See also:
+/// 请参阅：
 ///
-///  * [flutter.io/widgets](https://flutter.io/widgets/)
-///    for a catalog of commonly-used Flutter widgets.
+///  * Flutter常用组件目录 [flutter.io/widgets](https://flutter.io/widgets/)
 library widgets;
 
 export 'package:vector_math/vector_math_64.dart' show Matrix4;
