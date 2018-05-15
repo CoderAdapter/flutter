@@ -111,76 +111,60 @@ class DecoratedBox extends SingleChildRenderObjectWidget {
   }
 }
 
-/// A convenience widget that combines common painting, positioning, and sizing
-/// widgets.
+/// 一个结合了常用的绘图组件、定位组件和尺寸组件的便捷组件。
 ///
-/// A container first surrounds the child with [padding] (inflated by any
-/// borders present in the [decoration]) and then applies additional
-/// [constraints] to the padded extent (incorporating the `width` and `height`
-/// as constraints, if either is non-null). The container is then surrounded by
-/// additional empty space described from the [margin].
+/// 容器先用[padding]（会被[decoration]中定义的边框撑开）包裹子组件，然后对填
+/// 充施加附加约束（如果`width`和`height`都不是null，也会以它们作为约束）。最后
+/// 容器被[margin]包裹。
 ///
-/// During painting, the container first applies the given [transform], then
-/// paints the [decoration] to fill the padded extent, then it paints the child,
-/// and finally paints the [foregroundDecoration], also filling the padded
-/// extent.
+/// 绘图时，容器先实现变形[transform]，然后绘制[decoration]来填充区域，然后绘
+/// 制子组件，最后绘制前景样式[foregroundDecoration]，并填充区域。
 ///
-/// Containers with no children try to be as big as possible unless the incoming
-/// constraints are unbounded, in which case they try to be as small as
-/// possible. Containers with children size themselves to their children. The
-/// `width`, `height`, and [constraints] arguments to the constructor override
-/// this.
+/// 无子组件的容器会尽可能的大，除非传入的约束是无界约束，而在此时它们会尽可能的
+/// 小。有子组件的容器会适应子组件的尺寸。构造方法接收的`width`、`height`和
+/// [constraints]参数会覆盖上述的情况。
 ///
-/// ## Layout behavior
+/// ## 布局行为
 ///
-/// _See [BoxConstraints] for an introduction to box layout models._
+/// _查看[BoxConstraints]来了解盒式布局模型。_
 ///
-/// Since [Container] combines a number of other widgets each with their own
-/// layout behavior, [Container]'s layout behavior is somewhat complicated.
+/// 既然[Container]结合了其它组件，那么[Container]的布局行为会与这些组件的布局行
+/// 为有关，这便有些复杂。
 ///
-/// tl;dr: [Container] tries, in order: to honor [alignment], to size itself to
-/// the [child], to honor the `width`, `height`, and [constraints], to expand to
-/// fit the parent, to be as small as possible.
+/// 长话短说： [Container]试图依次进行对齐[alignment]、根据子组件[child]设置
+/// 自身尺寸、设置`width`、`height`、按约束来尽可能的缩小尺寸以便适应父组件。
 ///
-/// More specifically:
+/// 详细内容：
 ///
-/// If the widget has no child, no `height`, no `width`, no [constraints],
-/// and the parent provides unbounded constraints, then [Container] tries to
-/// size as small as possible.
+/// 如果没有子组件，没有`height`，没有`width`，没有[constraints]，并且父组件提
+/// 供无界约束，那么[Container]会试图尽可能的缩小尺寸。
 ///
-/// If the widget has no child and no [alignment], but a `height`, `width`, or
-/// [constraints] are provided, then the [Container] tries to be as small as
-/// possible given the combination of those constraints and the parent's
-/// constraints.
+/// 如果没有子组件，且没有[alignment]，但是有`height`、`width`或
+/// [constraints]中的任何一个，那么[Container]会在结合这些约束与父级约束的前提
+/// 下尽可能的缩小尺寸。
 ///
-/// If the widget has no child, no `height`, no `width`, no [constraints], and
-/// no [alignment], but the parent provides bounded constraints, then
-/// [Container] expands to fit the constraints provided by the parent.
+/// 如果没有子组件，没有`height`，没有`width`，没有[constraints]，并且没有
+/// [alignment]，但是父组件提供了有界约束，那么[Container]会展开至适应父级组
+/// 件提供的约束。
 ///
-/// If the widget has an [alignment], and the parent provides unbounded
-/// constraints, then the [Container] tries to size itself around the child.
+/// 如果没有[alignment]，并且父组件提供了无界约束，那么[Container]试图围绕子
+/// 组件来调整尺寸。
 ///
-/// If the widget has an [alignment], and the parent provides bounded
-/// constraints, then the [Container] tries to expand to fit the parent, and
-/// then positions the child within itself as per the [alignment].
+/// 如果有[alignment]，并且父组件提供了有界约束，那么[Container]会展开至适应
+/// 父组件，并在其内部按照[alignment]定位子组件。
 ///
-/// Otherwise, the widget has a [child] but no `height`, no `width`, no
-/// [constraints], and no [alignment], and the [Container] passes the
-/// constraints from the parent to the child and sizes itself to match the
-/// child.
+/// 除上述之外，如果有一个[child]，但是没有`height`、`width`、[constraints]或
+/// [alignment]，那么[Container]会把父组件约束传递给子组件，并且调整尺寸以适应
+/// 子组件。
 ///
-/// The [margin] and [padding] properties also affect the layout, as described
-/// in the documentation for those properties. (Their effects merely augment the
-/// rules described above.) The [decoration] can implicitly increase the
-/// [padding] (e.g. borders in a [BoxDecoration] contribute to the [padding]);
-/// see [Decoration.padding].
+/// [margin]和[padding]属性也会影响布局，详情查看它们的文档内容（它们的作用只
+/// 是对上述的补充）。[decoration]可以隐式地增加[padding]（例如，
+/// [BoxDecoration]中的边框会对[padding]有影响）；查阅[Decoration.padding]。
 ///
-/// ## Sample code
+/// ## 示例代码
 ///
-/// This example shows a 48x48 green square (placed inside a [Center] widget in
-/// case the parent widget has its own opinions regarding the size that the
-/// [Container] should take), with a margin so that it stays away from
-/// neighboring widgets:
+/// 此例展示了48x48的绿色方块（把[Container]放在[Center]组件内，以防止父组件擅自
+/// 决定它的尺寸），相邻组件用边距隔离。
 ///
 /// ```dart
 /// new Center(
@@ -193,14 +177,11 @@ class DecoratedBox extends SingleChildRenderObjectWidget {
 /// )
 /// ```
 ///
-/// This example shows how to use many of the features of [Container] at once.
-/// The [constraints] are set to fit the font size plus ample headroom
-/// vertically, while expanding horizontally to fit the parent. The [padding] is
-/// used to make sure there is space between the contents and the text. The
-/// `color` makes the box teal. The [alignment] causes the [child] to be
-/// centered in the box. The [foregroundDecoration] overlays a nine-patch image
-/// onto the text. Finally, the [transform] applies a slight rotation to the
-/// entire contraption to complete the effect.
+/// 此例展示了如何一次使用[Container]的多个功能。
+///[constraints]的高度被设置为字体大小加上充足的垂直净空高度，以便适应父组件水
+///平尺寸时发生文字换行。[padding]用来确保内容与文字间的填充。`color`使盒子呈绿
+///色。[alignment]使[child]在盒内居中。[foregroundDecoration]将九宫格图片叠
+///加在文本上。最后，[transform]对整个装置进行轻微的旋转以完成效果。
 ///
 /// ```dart
 /// new Container(
@@ -221,24 +202,21 @@ class DecoratedBox extends SingleChildRenderObjectWidget {
 /// )
 /// ```
 ///
-/// See also:
+/// 请参阅：
 ///
-///  * [AnimatedContainer], a variant that smoothly animates the properties when
-///    they change.
-///  * [Border], which has a sample which uses [Container] heavily.
-///  * [Ink], which paints a [Decoration] on a [Material], allowing
-///    [InkResponse] and [InkWell] splashes to paint over them.
-///  * The [catalog of layout widgets](https://flutter.io/widgets/layout/).
+///  * [AnimatedContainer]，能够属性变化时平滑实现平滑动画的变体。
+///  * [Border]，有一个大量使用[Container]的样例。
+///  * [Ink]，在[Material]上绘制[Decoration]，允许[InkResponse]和[InkWell]在其上
+///  表现飞溅效果。
+///  * [布局组件目录](https://flutter.io/widgets/layout/).
 class Container extends StatelessWidget {
-  /// Creates a widget that combines common painting, positioning, and sizing widgets.
+  /// 创建了一个结合常用的绘图组件、定位组件和尺寸组件的组件。
   ///
-  /// The `height` and `width` values include the padding.
+  /// `height`和`width`值包含了padding
   ///
-  /// The `color` argument is a shorthand for `decoration: new
-  /// BoxDecoration(color: color)`, which means you cannot supply both a `color`
-  /// and a `decoration` argument. If you want to have both a `color` and a
-  /// `decoration`, you can pass the color as the `color` argument to the
-  /// `BoxDecoration`.
+  /// `color`参数是`decoration: new BoxDecoration(color: color)`的简写形式，这意
+  /// 味着你不能同时提供`color`和`decoration`参数。如果你想同时用它们，你可以把
+  /// 颜色作为`color`参数传入`BoxDecoration`。
   Container({
     Key key,
     this.alignment,
@@ -268,61 +246,52 @@ class Container extends StatelessWidget {
           : constraints,
        super(key: key);
 
-  /// The [child] contained by the container.
+  /// 容器包含的子组件[child]
   ///
-  /// If null, and if the [constraints] are unbounded or also null, the
-  /// container will expand to fill all available space in its parent, unless
-  /// the parent provides unbounded constraints, in which case the container
-  /// will attempt to be as small as possible.
+  ///
+  /// 如果是null，[constraints]是无界约束或者也是null，容器会展开以填充父组件
+  /// 的可用空间，除非父组件提供一个无界约束，此时容器则尽可能的缩小尺寸。
   ///
   /// {@macro flutter.widgets.child}
   final Widget child;
 
-  /// Align the [child] within the container.
+  /// 在容器内对齐[child]
   ///
-  /// If non-null, the container will expand to fill its parent and position its
-  /// child within itself according to the given value. If the incoming
-  /// constraints are unbounded, then the child will be shrink-wrapped instead.
+  /// 如果不是null，容器会展开以填充父组件，并根据给定的值在其内部定位子组件。如果传入无界约束，那么会缩小尺寸以适应子组件。
   ///
-  /// Ignored if [child] is null.
+  /// 如果[child]是null，则忽略此属性
   ///
-  /// See also:
+  /// 请参阅：
   ///
-  ///  * [Alignment], a class with convenient constants typically used to
-  ///    specify an [AlignmentGeometry].
-  ///  * [AlignmentDirectional], like [Alignment] for specifying alignments
-  ///    relative to text direction.
+  ///  * [Alignment]，便捷指定[AlignmentGeometry]约束的类。
+  ///  * [AlignmentDirectional]，类似[Alignment]，用于指定文本方向。
   final AlignmentGeometry alignment;
 
-  /// Empty space to inscribe inside the [decoration]. The [child], if any, is
-  /// placed inside this padding.
+  /// 在[decoration]中的空白空间。[child]如果存在，子组件会被置于其中。
   ///
-  /// This padding is in addition to any padding inherent in the [decoration];
-  /// see [Decoration.padding].
+  /// 此填充会被追加进[decoration]所继承的填充；查阅[Decoration.padding]。
   final EdgeInsetsGeometry padding;
 
-  /// The decoration to paint behind the [child].
+  /// 在[child]后面绘制的样式。
   ///
-  /// A shorthand for specifying just a solid color is available in the
-  /// constructor: set the `color` argument instead of the `decoration`
-  /// argument.
+  /// 在构造方法中仅指定纯色的便捷方式：设置`color`参数而不是`decoration`参数。
   final Decoration decoration;
 
-  /// The decoration to paint in front of the [child].
+  /// 在[child]前面绘制的样式
   final Decoration foregroundDecoration;
 
-  /// Additional constraints to apply to the child.
+  /// 施加在子组件的附加约束
   ///
-  /// The constructor `width` and `height` arguments are combined with the
-  /// `constraints` argument to set this property.
+  /// 构造方法的`height`和`width`参数与`constraints`参数组合设置此属性。
   ///
-  /// The [padding] goes inside the constraints.
+  /// [padding]在此约束中。
   final BoxConstraints constraints;
 
-  /// Empty space to surround the [decoration] and [child].
+  /// 环绕[decoration]和[child]的空白空间。
   final EdgeInsetsGeometry margin;
 
   /// The transformation matrix to apply before painting the container.
+  /// 绘制容器前的形变数列。
   final Matrix4 transform;
 
   EdgeInsetsGeometry get _paddingIncludingDecoration {
