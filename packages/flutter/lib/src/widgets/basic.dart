@@ -3339,16 +3339,16 @@ class Flex extends MultiChildRenderObjectWidget {
   }
 }
 
-/// 使子组件横向排列显示的组件。
+/// 使子控件横向排列显示的控件。
 ///
-/// 用[Expanded]包裹其中一个子组件，可以使它填满横向可用空间。
+/// 用[Expanded]包裹其中一个子控件，可以使它填满横向可用空间。
 ///
-/// [Row]组件不滚动（而且如果放置太多子组件超出可用空间通常是错误的做法）。如果
-/// 你想让一行组件在空间不足时发生滚动，可以考虑使用[ListView]。
+/// [Row]控件不滚动（而且如果放置太多子控件超出可用空间通常是错误的做法）。如果
+/// 你想让一行控件在空间不足时发生滚动，可以考虑使用[ListView]。
 ///
 /// [Column]提供纵向排列的功能。
 ///
-/// 如果有一个子组件，考虑用[Align]或[Center]来定位子组件。
+/// 如果有一个子控件，考虑用[Align]或[Center]来定位子控件。
 ///
 /// ## 示例代码
 ///
@@ -3406,7 +3406,7 @@ class Flex extends MultiChildRenderObjectWidget {
 /// 超过了row的可用空间，包不住了。row说道：“这不公平，我没有更多空间给我其他孩
 /// 子了！”，然后row生气了，扔出一团黄黑条纹。
 ///
-/// 修复手段是用一个[Expanded]组件包裹二娃子，这会告诉row二娃子要用最后剩下的空间：
+/// 修复手段是用一个[Expanded]控件包裹二娃子，这会告诉row二娃子要用最后剩下的空间：
 ///
 /// ```dart
 /// new Row(
@@ -3435,33 +3435,33 @@ class Flex extends MultiChildRenderObjectWidget {
 ///
 /// [Row]的布局分为6步进行：
 ///
-/// 1. 用无界水平约束和引入的垂直约束为每个子组件布局一个null或弹性系数0（不是
-///    [Expanded]的组件）。如果[crossAxisAlignment]是[CrossAxisAlignment.stretch]，
+/// 1. 用无界水平约束和引入的垂直约束为每个子控件布局一个null或弹性系数0（不是
+///    [Expanded]的控件）。如果[crossAxisAlignment]是[CrossAxisAlignment.stretch]，
 ///    则使用与传入的最大高度所匹配的紧垂直约束。
-/// 2. 根据这些子组件非零的弹性系数（它们是[Expanded]）分割水平可用空间。例如，
-///    一个弹性系数为2.0的子组件接收到的水平空间是弹性系数为1.0的子组件的2倍。
-/// 3. 用和步骤1同样的垂直约束布局剩下的组件，但是不用无界水平约束，而是用基于步
-///    骤2分得空间的水平约束。[Flexible.fit]属性值为[FlexFit.tight]的子组件被紧
+/// 2. 根据这些子控件非零的弹性系数（它们是[Expanded]）分割水平可用空间。例如，
+///    一个弹性系数为2.0的子控件接收到的水平空间是弹性系数为1.0的子控件的2倍。
+/// 3. 用和步骤1同样的垂直约束布局剩下的控件，但是不用无界水平约束，而是用基于步
+///    骤2分得空间的水平约束。[Flexible.fit]属性值为[FlexFit.tight]的子控件被紧
 ///    约束（例如，强制填满分得的空间），[Flexible.fit]属性值为[FlexFit.loose]的
-///    子组件被松约束布局（例如，不强制填满分得的空间）。
-/// 4. [Row]的高度是子组件高度的最大值（这总要满足传入的垂直约束）。
+///    子控件被松约束布局（例如，不强制填满分得的空间）。
+/// 4. [Row]的高度是子控件高度的最大值（这总要满足传入的垂直约束）。
 /// 5. [Row]的宽度由[mainAxisSize]属性决定。如果[mainAxisSize]属性值为
 ///    [MainAxisSize.max]，那么[Row]的宽度就是传入约束的最大宽度。如果
-///    [mainAxisSize]属性值为[MainAxisSize.min]，那么[Row]宽度就是所有子组件宽度
+///    [mainAxisSize]属性值为[MainAxisSize.min]，那么[Row]宽度就是所有子控件宽度
 ///    的和值（受制于传入的约束）。
-/// 5. 根据[mainAxisAlignment]和[crossAxisAlignment]来确定每一个子组件的位
+/// 5. 根据[mainAxisAlignment]和[crossAxisAlignment]来确定每一个子控件的位
 ///    置。例如，如果[mainAxisAlignment]属性值是[MainAxisAlignment.spaceBetween]，
-///    未被分配的水平空间会被平均分割并置于子组件之间。
+///    未被分配的水平空间会被平均分割并置于子控件之间。
 ///
 /// 请参阅：
 ///
 ///  * [Column], Row的垂直变体
 ///  * [Flex], 不确定想使用水平还是垂直布局时使用
-///  * [Expanded], 表明子组件需要沾满所有可用空间
-///  * [Flexible], 表明子组件可以分享可用空间，但可能是比较小的尺寸（会留下未使用的空间）
-///  * [布局组件目录](http://flutter-dev.cn/widgets/layout/).
+///  * [Expanded], 表明子控件需要沾满所有可用空间
+///  * [Flexible], 表明子控件可以分享可用空间，但可能是比较小的尺寸（会留下未使用的空间）
+///  * [布局控件目录](http://flutter-dev.cn/widgets/layout/).
 class Row extends Flex {
-  /// 为多个子组件创建一个水平布局
+  /// 为多个子控件创建一个水平布局
   ///
   ///
   /// [direction], [mainAxisAlignment], [mainAxisSize],
@@ -3471,7 +3471,7 @@ class Row extends Flex {
   ///
   /// [Directionality] 环境如果存在，[textDirection] 参数默认为它的值。如果没有
   /// directionality环境，那么文本方向就必须传入以确定文本布局方向（除非row没有
-  /// 子组件或只有一个子组件，否则总是如此），或者消除了[mainAxisAlignment]的
+  /// 子控件或只有一个子控件，否则总是如此），或者消除了[mainAxisAlignment]的
   /// `start`或`end`值时，[textDirection]也不可以是null。
   Row({
     Key key,
@@ -3495,20 +3495,20 @@ class Row extends Flex {
   );
 }
 
-/// 在垂直方向排列布局子组件的组件
+/// 在垂直方向排列布局子控件的控件
 ///
-/// 用[Expanded]包裹一个子组件，可以使它填充垂直可用空间。
+/// 用[Expanded]包裹一个子控件，可以使它填充垂直可用空间。
 ///
-/// [Column]组件不滚动（而且如果放置太多子组件超出可用空间通常是错误的做法）。如
-/// 果你想让一行组件在空间不足时发生滚动，可以考虑使用ListView。
+/// [Column]控件不滚动（而且如果放置太多子控件超出可用空间通常是错误的做法）。如
+/// 果你想让一行控件在空间不足时发生滚动，可以考虑使用ListView。
 ///
 /// [Row]提供水平布局的功能
 ///
-/// 如果有一个子组件，考虑用[Align]或[Center]来定位子组件。
+/// 如果有一个子控件，考虑用[Align]或[Center]来定位子控件。
 ///
 /// ## 示例代码
 ///
-/// 此例使用[Column]垂直布局三个子组件，最后一个子组件填满剩余空间。
+/// 此例使用[Column]垂直布局三个子控件，最后一个子控件填满剩余空间。
 ///
 /// ```dart
 /// new Column(
@@ -3526,8 +3526,8 @@ class Row extends Flex {
 /// ```
 ///
 /// 在上面的例子中，文本和logo在各自行内水平居中。下面的例子中，[crossAxisAlignment]
-/// 属性值设置为[CrossAxisAlignment.start]，以便子组件靠左。[mainAxisSize]
-/// 属性设置为[MainAxisSize.min]，以便column收缩适应子组件的尺寸。
+/// 属性值设置为[CrossAxisAlignment.start]，以便子控件靠左。[mainAxisSize]
+/// 属性设置为[MainAxisSize.min]，以便column收缩适应子控件的尺寸。
 ///
 /// ```dart
 /// new Column(
@@ -3549,27 +3549,27 @@ class Row extends Flex {
 ///
 /// ### 当传入无界约束
 ///
-/// 当[Column]又一个或多个[Expanded]、[Flexible]作为子组件并且被放进另一个
-/// [Column]、或[ListView]、或其他未为此[Column]提供最大高度约束的组件中时，你会
-/// 在运行时发现异常：子组件弹性系数非零，但垂直约束无界。
+/// 当[Column]又一个或多个[Expanded]、[Flexible]作为子控件并且被放进另一个
+/// [Column]、或[ListView]、或其他未为此[Column]提供最大高度约束的控件中时，你会
+/// 在运行时发现异常：子控件弹性系数非零，但垂直约束无界。
 ///
 /// 这个问题 - 如上述异常中描述的那样 - 就是使用[Flexible]或[Expanded]时，剩余空
-/// 间会在其他子组件计算布局之后必须平等分配，但是如果传入的垂直约束是无界的，那
+/// 间会在其他子控件计算布局之后必须平等分配，但是如果传入的垂直约束是无界的，那
 /// 么剩余空间就是无限大的。
 ///
 /// 解决这个问题的关键通常是解决为什么[Column]接收到无界垂直约束。
 ///
 /// 发生这种问题的一个常见原因就是[Column]被放置于另一个[Column]中（没有用[Expanded]
-/// 或[Flexible]包裹内嵌的[Column]）。当一个[Column]布局非弹性子组件（未用[Expanded]
-/// 或[Flexible]包裹的组件）时，它会传给它们无界约束以便它们决定自身尺寸（传递无
-/// 界约束通常会通知子组件包裹其内容）。通常这种情况的解决方案是吧内嵌的column用
+/// 或[Flexible]包裹内嵌的[Column]）。当一个[Column]布局非弹性子控件（未用[Expanded]
+/// 或[Flexible]包裹的控件）时，它会传给它们无界约束以便它们决定自身尺寸（传递无
+/// 界约束通常会通知子控件包裹其内容）。通常这种情况的解决方案是吧内嵌的column用
 /// [Expanded]包裹，表明它应该占据外层column内的剩余空间，而不是让它随心所欲占据
 /// 空间。
 ///
-/// 另一个原因是把[Column]放入了[ListView]或其他垂直滚动组件中。在这种情况，空间
+/// 另一个原因是把[Column]放入了[ListView]或其他垂直滚动控件中。在这种情况，空间
 /// 是真的无限的（垂直滚动列表本身就具有垂直无限空间）。这时，能够做的就是检查为
-/// 什么[Column]要有[Expanded]或[Flexible]子组件：子组件的尺寸到底应该时多少？通
-/// 常这种情况的解决方案是从子组件中移除[Expanded]或[Flexible]组件。
+/// 什么[Column]要有[Expanded]或[Flexible]子控件：子控件的尺寸到底应该时多少？通
+/// 常这种情况的解决方案是从子控件中移除[Expanded]或[Flexible]控件。
 ///
 /// 关于约束的更多讨论请查看[BoxConstraints]。
 ///
@@ -3590,32 +3590,32 @@ class Row extends Flex {
 /// [Column]布局分为6步进行：
 ///
 /// 1. 用无界垂直约束与传入的有界水平约束布局每一个弹性系数为null或0（例如不是
-///    [Expanded]的组件）。如果[crossAxisAlignment]值是[CrossAxisAlignment.stretch]，
+///    [Expanded]的控件）。如果[crossAxisAlignment]值是[CrossAxisAlignment.stretch]，
 ///    那么会应用紧水平约束来适应传入的最大宽度。
-/// 2. 用弹性系数非零组件（例如系数非0的[Expanded]组件）的系数分割剩余空间。例如
-///    ，弹性系数为2.0的组件分配到的垂直空间是系数为1.0的组件的2倍。
-/// 3. 用步骤1的水平约束布局余下的每个子组件，但是不用无界垂直约束，而使用基于步
-///    骤2中分得空间的垂直约束。[Flexible.fit]属性值为[FlexFit.tight]的子组件是
+/// 2. 用弹性系数非零控件（例如系数非0的[Expanded]控件）的系数分割剩余空间。例如
+///    ，弹性系数为2.0的控件分配到的垂直空间是系数为1.0的控件的2倍。
+/// 3. 用步骤1的水平约束布局余下的每个子控件，但是不用无界垂直约束，而使用基于步
+///    骤2中分得空间的垂直约束。[Flexible.fit]属性值为[FlexFit.tight]的子控件是
 ///    紧约束（如 强制填满分配的空间），[Flexible.fit]属性值为[FlexFit.loose]的
-///    子组件接收松约束（如 不强制填满分配的空间）。
-/// 4. [Column]的宽度是子组件宽度的最大值（同时也会满足传入的水平约束）。
+///    子控件接收松约束（如 不强制填满分配的空间）。
+/// 4. [Column]的宽度是子控件宽度的最大值（同时也会满足传入的水平约束）。
 /// 5. [Column]的高度由[mainAxisSize]属性决定。如果[mainAxisSize]属性值为
 ///    [MainAxisSize.max]，那么[Column]的高度就是传入约束的最大值。如果[mainAxisSize]
-///    属性值为[MainAxisSize.min]，那么[Column]的高度就是子组件高度之和（也必须满足
+///    属性值为[MainAxisSize.min]，那么[Column]的高度就是子控件高度之和（也必须满足
 ///    传入的垂直约束）。
-/// 6. 根据[mainAxisAlignment] 和 [crossAxisAlignment]决定每个子组件的位置。
+/// 6. 根据[mainAxisAlignment] 和 [crossAxisAlignment]决定每个子控件的位置。
 ///    例如，如果[mainAxisAlignment]属性值是[MainAxisAlignment.spaceBetween]，
-///    未被分配的垂直空间会平均分割置于子组件之间。
+///    未被分配的垂直空间会平均分割置于子控件之间。
 ///
 /// 请参阅：
 ///
 ///  * [Row], 水平布局变体
 ///  * [Flex], 不确定想使用水平还是垂直布局时使用
-///  * [Expanded], 表明子组件需要填满所有可用空间
-///  * [Flexible], 表明子组件可以分配可用空间，但满足自身使用即可（会留下未使用的空间）
-///  * [布局组件目录](https://flutter.io/widgets/layout/).
+///  * [Expanded], 表明子控件需要填满所有可用空间
+///  * [Flexible], 表明子控件可以分配可用空间，但满足自身使用即可（会留下未使用的空间）
+///  * [布局控件目录](https://flutter.io/widgets/layout/).
 class Column extends Flex {
-  /// 创建一个垂直排列子组件的组件
+  /// 创建一个垂直排列子控件的控件
   ///
   /// [direction]、[mainAxisAlignment]、[mainAxisSize]、[crossAxisAlignment]和
   /// [verticalDirection]参数不能为null。如果[crossAxisAlignment]值是
@@ -3719,22 +3719,22 @@ class Flexible extends ParentDataWidget<Flex> {
   }
 }
 
-/// 一个使Row、Column或Flex的子组件扩展尺寸的组件。
+/// 一个使Row、Column或Flex的子控件扩展尺寸的控件。
 ///
-/// 用[Expanded]组件来使[Row]、[Column]或[Flex]的子组件在其主轴（(例如，[Row]在
-/// 水平方向，[Column]在垂直方向）方向上填充可用空间。如果让多个子组件展开，
+/// 用[Expanded]控件来使[Row]、[Column]或[Flex]的子控件在其主轴（(例如，[Row]在
+/// 水平方向，[Column]在垂直方向）方向上填充可用空间。如果让多个子控件展开，
 /// 可用空间会被以他们的伸缩因子[flex]（可理解为比例）分割。
 ///
-/// [Expanded]组件必须用在[Row]、[Column]或[Flex]内，并且从这个[Expanded]到
+/// [Expanded]控件必须用在[Row]、[Column]或[Flex]内，并且从这个[Expanded]到
 /// 封装它的[Row]、[Column]或[Flex]的路径只能包含一些[StatelessWidget]或
-/// [StatefulWidget]组件（不能有其他类型的组件，如[RenderObjectWidget]）。
+/// [StatefulWidget]控件（不能有其他类型的控件，如[RenderObjectWidget]）。
 ///
 /// 请参阅：
 ///
-///  * [Flexible]，不强制子组件填满可用空间的组件
-///  * [布局组件目录](https://flutter.io/widgets/layout/).
+///  * [Flexible]，不强制子控件填满可用空间的控件
+///  * [布局控件目录](https://flutter.io/widgets/layout/).
 class Expanded extends Flexible {
-  /// 创建一个使[Row]、[Column]或[Flex]的子组件填充主轴可用空间的组件。
+  /// 创建一个使[Row]、[Column]或[Flex]的子控件填充主轴可用空间的控件。
   const Expanded({
     Key key,
     int flex: 1,

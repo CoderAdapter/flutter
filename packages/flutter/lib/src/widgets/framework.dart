@@ -335,78 +335,57 @@ class TypeMatcher<T> {
   bool check(dynamic object) => object is T;
 }
 
-/// Describes the configuration for an [Element].
+/// 用于描述[Element]的配置
 ///
-/// Widgets are the central class hierarchy in the Flutter framework. A widget
-/// is an immutable description of part of a user interface. Widgets can be
-/// inflated into elements, which manage the underlying render tree.
+/// Widget是Flutter框架的核心类层。Widget是一部分UI的不可变的描述。Widget可以填
+/// 充成元素来管理底层渲染树。
 ///
-/// Widgets themselves have no mutable state (all their fields must be final).
-/// If you wish to associate mutable state with a widget, consider using a
-/// [StatefulWidget], which creates a [State] object (via
-/// [StatefulWidget.createState]) whenever it is inflated into an element and
-/// incorporated into the tree.
+/// Widget本身没有可变状态（所有字段均为final）。如果希望把Widget与可变状态关联，
+/// 考虑使用[StatefulWidget]，它会在每次Widget填充为元素放入渲染树时创建一个
+/// [State]对象（通过[StatefulWidget.createState]）。
 ///
-/// A given widget can be included in the tree zero or more times. In particular
-/// a given widget can be placed in the tree multiple times. Each time a widget
-/// is placed in the tree, it is inflated into an [Element], which means a
-/// widget that is incorporated into the tree multiple times will be inflated
-/// multiple times.
+/// Widget可以被渲染树调用0次或多次。尤其是，Widget可以放入树中多次。每次放入树，
+/// 它会被填充进[Element]，这意味着被多次放入树的Widget会多次用来充进元素。
 ///
-/// The [key] property controls how one widget replaces another widget in the
-/// tree. If the [runtimeType] and [key] properties of the two widgets are
-/// [operator==], respectively, then the new widget replaces the old widget by
-/// updating the underlying element (i.e., by calling [Element.update] with the
-/// new widget). Otherwise, the old element is removed from the tree, the new
-/// widget is inflated into an element, and the new element is inserted into the
-/// tree.
+/// [Key]属性控制Widget之间的替换。如果两个Widget的[runtimeType]和[Key]属性是
+/// 分别[operator==]的，那么新Widget会通过更新底层元素（换句话说，以新Widget作为
+/// 参数对旧Widget调用[Element.update]）替换旧Widget。否则，旧元素从树中移除，新
+/// Widget填充为元素，然后新元素插入树中。
 ///
-/// See also:
+/// 请参阅：
 ///
-///  * [StatefulWidget] and [State], for widgets that can build differently
-///    several times over their lifetime.
-///  * [InheritedWidget], for widgets that introduce ambient state that can
-///    be read by descendant widgets.
-///  * [StatelessWidget], for widgets that always build the same way given a
-///    particular configuration and ambient state.
+///  * [StatefulWidget]和[State], 在生命周期中可多次构建不同状态的Widget
+///  * [InheritedWidget], 为子控件提供可读配置环境的Widget
+///  * [StatelessWidget], 只以给定配置和环境构建自身的Widget
 @immutable
 abstract class Widget extends DiagnosticableTree {
-  /// Initializes [key] for subclasses.
+  /// 为子类初始化[key]
   const Widget({ this.key });
 
-  /// Controls how one widget replaces another widget in the tree.
+  /// 控制一个Widget在树中如何替换另一个
   ///
-  /// If the [runtimeType] and [key] properties of the two widgets are
-  /// [operator==], respectively, then the new widget replaces the old widget by
-  /// updating the underlying element (i.e., by calling [Element.update] with the
-  /// new widget). Otherwise, the old element is removed from the tree, the new
-  /// widget is inflated into an element, and the new element is inserted into the
-  /// tree.
+  /// 如果两个Widget的[runtimeType]和[Key]属性是
+  /// 分别[operator==]的，那么新Widget会通过更新底层元素（换句话说，以新Widget作为
+  /// 参数对旧Widget调用[Element.update]）替换旧Widget。否则，旧元素从树中移除，新
+  /// Widget填充为元素，然后新元素插入树中。
   ///
-  /// In addition, using a [GlobalKey] as the widget's [key] allows the element
-  /// to be moved around the tree (changing parent) without losing state. When a
-  /// new widget is found (its key and type do not match a previous widget in
-  /// the same location), but there was a widget with that same global key
-  /// elsewhere in the tree in the previous frame, then that widget's element is
-  /// moved to the new location.
+  /// 另外，使用[GlobalKey]作为[key]的Widget在树中移动（改变父节点）时不会失去状
+  /// 态。当建立新Widget（它的key和类型都与同一位置的旧Widget不同）时，树中某处
+  /// 有个元素与新Widget的global key相同，那么那个元素就会移动到这个新位置。
   ///
-  /// Generally, a widget that is the only child of another widget does not need
-  /// an explicit key.
+  /// 通常来说，如果是父级的唯一子widget，那么不必明确定义key
   ///
-  /// See also the discussions at [Key] and [GlobalKey].
+  /// 请参阅[Key]和[GlobalKey]
   final Key key;
 
-  /// Inflates this configuration to a concrete instance.
+  /// 将此配置填充进具体实例
   ///
-  /// A given widget can be included in the tree zero or more times. In particular
-  /// a given widget can be placed in the tree multiple times. Each time a widget
-  /// is placed in the tree, it is inflated into an [Element], which means a
-  /// widget that is incorporated into the tree multiple times will be inflated
-  /// multiple times.
+  /// Widget可以被渲染树调用0次或多次。尤其是，Widget可以放入树中多次。每次放入树，
+  /// 它会被填充进[Element]，这意味着被多次放入树的Widget会多次用来充进元素。
   @protected
   Element createElement();
 
-  /// A short, textual description of this widget.
+  /// 此widget的简短的文字描述
   @override
   String toStringShort() {
     return key == null ? '$runtimeType' : '$runtimeType-$key';
@@ -419,16 +398,13 @@ abstract class Widget extends DiagnosticableTree {
   }
 
 
-  /// Whether the `newWidget` can be used to update an [Element] that currently
-  /// has the `oldWidget` as its configuration.
+  /// `newWidget`是否可被用于更新以`oldWidget`作为配置的[Element]
   ///
-  /// An element that uses a given widget as its configuration can be updated to
-  /// use another widget as its configuration if, and only if, the two widgets
-  /// have [runtimeType] and [key] properties that are [operator==].
+  /// 只有当两个Widget的[runtimeType]和[key]分别[operator==]时，当前元素才能以
+  /// 新Widget作为它的配置。
   ///
-  /// If the widgets have no key (their key is null), then they are considered a
-  /// match if they have the same type, even if their children are completely
-  /// different.
+  /// 如果两个Widget都没有key（它们的key为null），那么当它们类型相同时就被认为可
+  /// 更新，即使它们的子Widget完全不同
   static bool canUpdate(Widget oldWidget, Widget newWidget) {
     return oldWidget.runtimeType == newWidget.runtimeType
         && oldWidget.key == newWidget.key;
