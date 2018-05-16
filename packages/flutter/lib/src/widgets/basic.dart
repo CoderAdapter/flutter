@@ -3495,34 +3495,29 @@ class Row extends Flex {
   );
 }
 
-/// A widget that displays its children in a vertical array.
+/// 在垂直方向排列布局子组件的组件
 ///
-/// To cause a child to expand to fill the available vertical space, wrap the
-/// child in an [Expanded] widget.
+/// 用[Expanded]包裹一个子组件，可以使它填充垂直可用空间。
 ///
-/// The [Column] widget does not scroll (and in general it is considered an error
-/// to have more children in a [Column] than will fit in the available room). If
-/// you have a line of widgets and want them to be able to scroll if there is
-/// insufficient room, consider using a [ListView].
+/// [Column]组件不滚动（而且如果放置太多子组件超出可用空间通常是错误的做法）。如
+/// 果你想让一行组件在空间不足时发生滚动，可以考虑使用ListView。
 ///
-/// For a horizontal variant, see [Row].
+/// [Row]提供水平布局的功能
 ///
-/// If you only have one child, then consider using [Align] or [Center] to
-/// position the child.
+/// 如果有一个子组件，考虑用[Align]或[Center]来定位子组件。
 ///
-/// ## Sample code
+/// ## 示例代码
 ///
-/// This example uses a [Column] to arrange three widgets vertically, the last
-/// being made to fill all the remaining space.
+/// 此例使用[Column]垂直布局三个子组件，最后一个子组件填满剩余空间。
 ///
 /// ```dart
 /// new Column(
 ///   children: <Widget>[
-///     new Text('Deliver features faster'),
-///     new Text('Craft beautiful UIs'),
+///     new Text('快速交付功能'),
+///     new Text('制作精美界面'),
 ///     new Expanded(
 ///       child: new FittedBox(
-///         fit: BoxFit.contain, // otherwise the logo will be tiny
+///         fit: BoxFit.contain, // 否则logo会非常小
 ///         child: const FlutterLogo(),
 ///       ),
 ///     ),
@@ -3530,139 +3525,104 @@ class Row extends Flex {
 /// )
 /// ```
 ///
-/// In the sample above, the text and the logo are centered on each line. In the
-/// following example, the [crossAxisAlignment] is set to
-/// [CrossAxisAlignment.start], so that the children are left-aligned. The
-/// [mainAxisSize] is set to [MainAxisSize.min], so that the column shrinks to
-/// fit the children.
+/// 在上面的例子中，文本和logo在各自行内水平居中。下面的例子中，[crossAxisAlignment]
+/// 属性值设置为[CrossAxisAlignment.start]，以便子组件靠左。[mainAxisSize]
+/// 属性设置为[MainAxisSize.min]，以便column收缩适应子组件的尺寸。
 ///
 /// ```dart
 /// new Column(
 ///   crossAxisAlignment: CrossAxisAlignment.start,
 ///   mainAxisSize: MainAxisSize.min,
 ///   children: <Widget>[
-///     new Text('We move under cover and we move as one'),
-///     new Text('Through the night, we have one shot to live another day'),
-///     new Text('We cannot let a stray gunshot give us away'),
-///     new Text('We will fight up close, seize the moment and stay in it'),
-///     new Text('It’s either that or meet the business end of a bayonet'),
-///     new Text('The code word is ‘Rochambeau,’ dig me?'),
-///     new Text('Rochambeau!', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0)),
+///     new Text('天色昏黑，我们逐一行动'),
+///     new Text('撑过今夜，我们就又赚一天'),
+///     new Text('我们不能被冷枪干掉'),
+///     new Text('我们迫切战斗，享受其中'),
+///     new Text('要么完成任务，要么被刺刀结束生命'),
+///     new Text('暗号是‘罗尚博’ ，你在逗我？'),
+///     new Text('罗尚博！', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0)),
 ///   ],
 /// )
 /// ```
 ///
-/// ## Troubleshooting
+/// ## 故障排除
 ///
-/// ### When the incoming vertical constraints are unbounded
+/// ### 当传入无界约束
 ///
-/// When a [Column] has one or more [Expanded] or [Flexible] children, and is
-/// placed in another [Column], or in a [ListView], or in some other context
-/// that does not provide a maximum height constraint for the [Column], you will
-/// get an exception at runtime saying that there are children with non-zero
-/// flex but the vertical constraints are unbounded.
+/// 当[Column]又一个或多个[Expanded]、[Flexible]作为子组件并且被放进另一个
+/// [Column]、或[ListView]、或其他未为此[Column]提供最大高度约束的组件中时，你会
+/// 在运行时发现异常：子组件弹性系数非零，但垂直约束无界。
 ///
-/// The problem, as described in the details that accompany that exception, is
-/// that using [Flexible] or [Expanded] means that the remaining space after
-/// laying out all the other children must be shared equally, but if the
-/// incoming vertical constraints are unbounded, there is infinite remaining
-/// space.
+/// 这个问题 - 如上述异常中描述的那样 - 就是使用[Flexible]或[Expanded]时，剩余空
+/// 间会在其他子组件计算布局之后必须平等分配，但是如果传入的垂直约束是无界的，那
+/// 么剩余空间就是无限大的。
 ///
-/// The key to solving this problem is usually to determine why the [Column] is
-/// receiving unbounded vertical constraints.
+/// 解决这个问题的关键通常是解决为什么[Column]接收到无界垂直约束。
 ///
-/// One common reason for this to happen is that the [Column] has been placed in
-/// another [Column] (without using [Expanded] or [Flexible] around the inner
-/// nested [Column]). When a [Column] lays out its non-flex children (those that
-/// have neither [Expanded] or [Flexible] around them), it gives them unbounded
-/// constraints so that they can determine their own dimensions (passing
-/// unbounded constraints usually signals to the child that it should
-/// shrink-wrap its contents). The solution in this case is typically to just
-/// wrap the inner column in an [Expanded] to indicate that it should take the
-/// remaining space of the outer column, rather than being allowed to take any
-/// amount of room it desires.
+/// 发生这种问题的一个常见原因就是[Column]被放置于另一个[Column]中（没有用[Expanded]
+/// 或[Flexible]包裹内嵌的[Column]）。当一个[Column]布局非弹性子组件（未用[Expanded]
+/// 或[Flexible]包裹的组件）时，它会传给它们无界约束以便它们决定自身尺寸（传递无
+/// 界约束通常会通知子组件包裹其内容）。通常这种情况的解决方案是吧内嵌的column用
+/// [Expanded]包裹，表明它应该占据外层column内的剩余空间，而不是让它随心所欲占据
+/// 空间。
 ///
-/// Another reason for this message to be displayed is nesting a [Column] inside
-/// a [ListView] or other vertical scrollable. In that scenario, there really is
-/// infinite vertical space (the whole point of a vertical scrolling list is to
-/// allow infinite space vertically). In such scenarios, it is usually worth
-/// examining why the inner [Column] should have an [Expanded] or [Flexible]
-/// child: what size should the inner children really be? The solution in this
-/// case is typically to remove the [Expanded] or [Flexible] widgets from around
-/// the inner children.
+/// 另一个原因是把[Column]放入了[ListView]或其他垂直滚动组件中。在这种情况，空间
+/// 是真的无限的（垂直滚动列表本身就具有垂直无限空间）。这时，能够做的就是检查为
+/// 什么[Column]要有[Expanded]或[Flexible]子组件：子组件的尺寸到底应该时多少？通
+/// 常这种情况的解决方案是从子组件中移除[Expanded]或[Flexible]组件。
 ///
-/// For more discussion about constraints, see [BoxConstraints].
+/// 关于约束的更多讨论请查看[BoxConstraints]。
 ///
-/// ### The yellow and black striped banner
+/// ### 黄黑条纹
 ///
-/// When the contents of a [Column] exceed the amount of space available, the
-/// [Column] overflows, and the contents are clipped. In debug mode, a yellow
-/// and black striped bar is rendered at the overflowing edge to indicate the
-/// problem, and a message is printed below the [Column] saying how much
-/// overflow was detected.
+/// 当[Colunn]的内容超出了可用空间，[Column]便溢出了，内容也被截断。在调试模式
+/// debug mode，会在溢出边缘渲染黄黑条纹来表明发生了溢出，并在[Column]下面显示溢
+/// 出了多少。
 ///
-/// The usual solution is to use a [ListView] rather than a [Column], to enable
-/// the contents to scroll when vertical space is limited.
+/// 常用的解决方案是使用[ListView]而不是[Column]，它会让内容在有限的垂直空间内滚
+/// 动。
 ///
-/// ## Layout algorithm
+/// ## 布局算法
 ///
-/// _This section describes how a [Column] is rendered by the framework._
-/// _See [BoxConstraints] for an introduction to box layout models._
+/// _本节描述了框架如何渲染[Column]。_
+/// _查看盒式布局模型[BoxConstraints]。_
 ///
-/// Layout for a [Column] proceeds in six steps:
+/// [Column]布局分为6步进行：
 ///
-/// 1. Layout each child a null or zero flex factor (e.g., those that are not
-///    [Expanded]) with unbounded vertical constraints and the incoming
-///    horizontal constraints. If the [crossAxisAlignment] is
-///    [CrossAxisAlignment.stretch], instead use tight horizontal constraints
-///    that match the incoming max width.
-/// 2. Divide the remaining vertical space among the children with non-zero
-///    flex factors (e.g., those that are [Expanded]) according to their flex
-///    factor. For example, a child with a flex factor of 2.0 will receive twice
-///    the amount of vertical space as a child with a flex factor of 1.0.
-/// 3. Layout each of the remaining children with the same horizontal
-///    constraints as in step 1, but instead of using unbounded vertical
-///    constraints, use vertical constraints based on the amount of space
-///    allocated in step 2. Children with [Flexible.fit] properties that are
-///    [FlexFit.tight] are given tight constraints (i.e., forced to fill the
-///    allocated space), and children with [Flexible.fit] properties that are
-///    [FlexFit.loose] are given loose constraints (i.e., not forced to fill the
-///    allocated space).
-/// 4. The width of the [Column] is the maximum width of the children (which
-///    will always satisfy the incoming horizontal constraints).
-/// 5. The height of the [Column] is determined by the [mainAxisSize] property.
-///    If the [mainAxisSize] property is [MainAxisSize.max], then the height of
-///    the [Column] is the max height of the incoming constraints. If the
-///    [mainAxisSize] property is [MainAxisSize.min], then the height of the
-///    [Column] is the sum of heights of the children (subject to the incoming
-///    constraints).
-/// 6. Determine the position for each child according to the
-///    [mainAxisAlignment] and the [crossAxisAlignment]. For example, if the
-///    [mainAxisAlignment] is [MainAxisAlignment.spaceBetween], any vertical
-///    space that has not been allocated to children is divided evenly and
-///    placed between the children.
+/// 1. 用无界垂直约束与传入的有界水平约束布局每一个弹性系数为null或0（例如不是
+///    [Expanded]的组件）。如果[crossAxisAlignment]值是[CrossAxisAlignment.stretch]，
+///    那么会应用紧水平约束来适应传入的最大宽度。
+/// 2. 用弹性系数非零组件（例如系数非0的[Expanded]组件）的系数分割剩余空间。例如
+///    ，弹性系数为2.0的组件分配到的垂直空间是系数为1.0的组件的2倍。
+/// 3. 用步骤1的水平约束布局余下的每个子组件，但是不用无界垂直约束，而使用基于步
+///    骤2中分得空间的垂直约束。[Flexible.fit]属性值为[FlexFit.tight]的子组件是
+///    紧约束（如 强制填满分配的空间），[Flexible.fit]属性值为[FlexFit.loose]的
+///    子组件接收松约束（如 不强制填满分配的空间）。
+/// 4. [Column]的宽度是子组件宽度的最大值（同时也会满足传入的水平约束）。
+/// 5. [Column]的高度由[mainAxisSize]属性决定。如果[mainAxisSize]属性值为
+///    [MainAxisSize.max]，那么[Column]的高度就是传入约束的最大值。如果[mainAxisSize]
+///    属性值为[MainAxisSize.min]，那么[Column]的高度就是子组件高度之和（也必须满足
+///    传入的垂直约束）。
+/// 6. 根据[mainAxisAlignment] 和 [crossAxisAlignment]决定每个子组件的位置。
+///    例如，如果[mainAxisAlignment]属性值是[MainAxisAlignment.spaceBetween]，
+///    未被分配的垂直空间会平均分割置于子组件之间。
 ///
-/// See also:
+/// 请参阅：
 ///
-///  * [Row], for a horizontal equivalent.
-///  * [Flex], if you don't know in advance if you want a horizontal or vertical
-///    arrangement.
-///  * [Expanded], to indicate children that should take all the remaining room.
-///  * [Flexible], to indicate children that should share the remaining room but
-///    that may size smaller (leaving some remaining room unused).
-///  * The [catalog of layout widgets](https://flutter.io/widgets/layout/).
+///  * [Row], 水平布局变体
+///  * [Flex], 不确定想使用水平还是垂直布局时使用
+///  * [Expanded], 表明子组件需要填满所有可用空间
+///  * [Flexible], 表明子组件可以分配可用空间，但满足自身使用即可（会留下未使用的空间）
+///  * [布局组件目录](https://flutter.io/widgets/layout/).
 class Column extends Flex {
-  /// Creates a vertical array of children.
+  /// 创建一个垂直排列子组件的组件
   ///
-  /// The [direction], [mainAxisAlignment], [mainAxisSize],
-  /// [crossAxisAlignment], and [verticalDirection] arguments must not be null.
-  /// If [crossAxisAlignment] is [CrossAxisAlignment.baseline], then
-  /// [textBaseline] must not be null.
+  /// [direction]、[mainAxisAlignment]、[mainAxisSize]、[crossAxisAlignment]和
+  /// [verticalDirection]参数不能为null。如果[crossAxisAlignment]值是
+  /// [CrossAxisAlignment.baseline]，那么[textBaseline]不能为null。
   ///
-  /// The [textDirection] argument defaults to the ambient [Directionality], if
-  /// any. If there is no ambient directionality, and a text direction is going
-  /// to be necessary to disambiguate `start` or `end` values for the
-  /// [crossAxisAlignment], the [textDirection] must not be null.
+  /// [Directionality]环境如果存在，[textDirection]参数默认为它的值。如果没有directionality
+  /// 环境，为了消除[crossAxisAlignment]值为`start`或`end`时发生的歧义，[textDrection]就不能为null。
   Column({
     Key key,
     MainAxisAlignment mainAxisAlignment: MainAxisAlignment.start,
